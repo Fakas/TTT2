@@ -343,7 +343,7 @@ local function ReceiveRoleList()
 	local teamNotNone = team ~= TEAM_NONE
 	local teamAlone = TEAMS[team].alone
 
-	plys = {}
+	local plys = {}
 
 	for i = 1, num_ids do
 		local eidx = net.ReadUInt(7) + 1 -- we - 1 worldspawn=0
