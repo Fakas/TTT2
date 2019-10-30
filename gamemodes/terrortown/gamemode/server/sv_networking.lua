@@ -72,6 +72,8 @@ function SendRoleListMessage(subrole, team, sids, ply_or_rf)
 				net.WriteUInt(adds[i] - 1, 7)
 			end
 
+			hook.Run("TTT2ManipulateTTTRoleListSV", ply, subrole, team, adds)
+
 			net.Send(ply)
 		end
 
@@ -79,6 +81,9 @@ function SendRoleListMessage(subrole, team, sids, ply_or_rf)
 			net.Start("TTT_Role")
 			net.WriteUInt(subrole, ROLE_BITS)
 			net.WriteString(team)
+
+			hook.Run("TTT2ManipulateTTTRoleSV", ply, subrole, team)
+
 			net.Send(ply)
 		end
 	end
@@ -258,6 +263,9 @@ function SendFullStateUpdate()
 			net.Start("TTT_Role")
 			net.WriteUInt(tmp[ply][1], ROLE_BITS)
 			net.WriteString(tmp[ply][2])
+
+			hook.Run("TTT2ManipulateTTTRoleSV", ply, tmp[ply][1], tmp[ply][2])
+
 			net.Send(ply)
 		end
 	end
@@ -349,6 +357,9 @@ local function ttt_request_rolelist(ply)
 			net.Start("TTT_Role")
 			net.WriteUInt(tmp[ply][1], ROLE_BITS)
 			net.WriteString(tmp[ply][2])
+
+			hook.Run("TTT2ManipulateTTTRoleSV", ply, tmp[ply][1], tmp[ply][2])
+
 			net.Send(ply)
 		end
 	end

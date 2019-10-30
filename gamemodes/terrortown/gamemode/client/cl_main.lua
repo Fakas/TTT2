@@ -310,6 +310,8 @@ local function ReceiveRole()
 
 	client:SetRole(subrole, team)
 
+	hook.Run("TTT2ManipulateTTTRoleCL", subrole, team)
+
 	Msg("You are: ")
 	MsgN(string.upper(roles.GetByIndex(subrole).name))
 end
@@ -341,9 +343,12 @@ local function ReceiveRoleList()
 	local teamNotNone = team ~= TEAM_NONE
 	local teamAlone = TEAMS[team].alone
 
+	plys = {}
+
 	for i = 1, num_ids do
 		local eidx = net.ReadUInt(7) + 1 -- we - 1 worldspawn=0
 		local ply = player.GetByID(eidx)
+		plys[i] = ply
 
 		if IsValid(ply) and ply.SetRole then
 			ply:SetRole(subrole, team)
@@ -355,6 +360,8 @@ local function ReceiveRoleList()
 			end
 		end
 	end
+
+	hook.Run("TTT2ManipulateTTTRoleListCL", subrole, team, plys)
 end
 net.Receive("TTT_RoleList", ReceiveRoleList)
 
